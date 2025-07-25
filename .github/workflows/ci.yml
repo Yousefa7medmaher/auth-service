@@ -1,0 +1,61 @@
+name: Node.js CI with Docker and MongoDB
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-run:
+    runs-on: ubuntu-latest
+
+    services:
+      mongo:
+        image: mongo:6
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd="mongosh --eval 'db.stats()'" 
+          --health-interval=10s 
+          --health-timeout=5s 
+          --health-retries=5
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Wait for MongoDB to be ready
+      run: |
+        echo "Waiting for MongoDB..."
+        until mongosh --host localhost --eval "db.stats()" ; do
+          sleep 2
+        done
+
+    - name: Run Tests (optional)
+      env:
+        MONGO_URI: mongodb://localhost:27017/test-db
+      run: npm test
+
+    - name: Build Docker Image
+      run: docker build -t my-node-app .
+
+    - name: Run Docker Container
+      run: |
+        docker run -d --name app -p 5000:5000 \
+          -e MONGO_URI=mongodb://host.docker.internal:27017/test-db \
+          my-node-app
+
+    - name: Wait for App to start
+      run: sleep 5
+
+    - name: Test App is running (optional)
+      run: curl -I http://localhost:5000 || echo "App not reachable"
