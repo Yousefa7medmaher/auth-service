@@ -17,7 +17,7 @@ This is a secure authentication microservice built using **Express.js**, **Mongo
 - ✅ JWT token issued on successful login
 - ✅ Secured endpoints (e.g. `/protected`, `/admin`)
 - ✅ Docker support
-- ✅ CI/CD pipeline via GitHub Actions
+- ✅ CI pipeline via GitHub Actions
 
 ---
 
