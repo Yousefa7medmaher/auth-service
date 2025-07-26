@@ -1,0 +1,45 @@
+name: Node.js CI with Docker + Atlas MongoDB
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-run:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run Tests using Atlas
+      env:
+        MONGO_URI: ${{ secrets.MONGO_URI }}
+      run: npm test
+
+    - name: Build Docker Image
+      run: docker build -t my-node-app .
+
+    - name: Run Docker Container
+      env:
+        MONGO_URI: ${{ secrets.MONGO_URI }}
+      run: |
+        docker run -d --name app -p 5000:5000 \
+          -e MONGO_URI="${MONGO_URI}" \
+          my-node-app
+
+    - name: Wait for App to Start
+      run: sleep 5
+
+    - name: Test App is running (optional)
+      run: curl -I http://localhost:5000 || echo "App not reachable"
