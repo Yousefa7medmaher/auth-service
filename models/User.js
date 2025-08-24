@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const { Schema } = mongoose;
 
-const roles = ['admin', 'instructor', 'student'];
+const roles = ['admin', 'customer' ];
 
 const userSchema = new Schema({
   name: {
@@ -28,7 +28,7 @@ const userSchema = new Schema({
   role: {
     type: String,
     enum: roles,
-    default: 'student',
+    default: 'customer',
   },
   createdAt: {
     type: Date,

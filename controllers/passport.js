@@ -23,7 +23,7 @@ const configureGoogleStrategy = () => {
               email: profile.emails[0].value,
               // You may want to set a random password or mark as Google user
               password: 'google-oauth',
-              role: 'student', // default role
+              role: 'customer', // default role
             });
           }
           return done(null, user);

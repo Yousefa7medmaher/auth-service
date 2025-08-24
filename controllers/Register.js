@@ -9,7 +9,7 @@ import { sendResponse } from "../utils/response.js";
  *   @param {string} req.body.name - The user's name (required, min 2 characters).
  *   @param {string} req.body.email - The user's email (required, must be valid and unique).
  *   @param {string} req.body.password - The user's password (required, min 6 characters).
- *   @param {string} [req.body.role] - The user's role (optional, one of "admin", "instructor", "student"; defaults to "student").
+ *   @param {string} [req.body.role] - The user's role (optional, one of "admin", , "customer"; defaults to "customer").
  * @param {object} res - Express response object.
  * @param {function} next - Express next middleware function.
  *
@@ -31,7 +31,7 @@ const register = async (req, res, next) => {
     if (!password || typeof password !== "string" || password.length < 6) {
       return sendResponse(res, 400, { error: "Password is required and must be at least 6 characters." });
     }
-    const allowedRoles = ["admin", "instructor", "student"];
+    const allowedRoles = ["admin","customer"];
     if (role && !allowedRoles.includes(role)) {
       return sendResponse(res, 400, { error: "Invalid role specified." });
     }
@@ -51,7 +51,7 @@ const register = async (req, res, next) => {
       name: name.trim(),
       email: email.toLowerCase().trim(),
       password: hashedPassword,
-      role: role || "student",
+      role: role || "customer",
     });
 
     await user.save();
