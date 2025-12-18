@@ -15,7 +15,7 @@ router.get('/verify-token', (req, res) => {
   const token = authHeader.split(' ')[1];
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    return res.json({ user: decoded }); // بيرجع بيانات اليوزر (role, id, ...)
+    return res.json({ user: decoded }); 
   } catch (err) {
     return res.status(401).json({ message: 'Invalid token' });
   }
