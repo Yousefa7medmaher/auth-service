@@ -36,6 +36,8 @@ jobs:
       with:
         context: .
         push: true
-        tags: |
-          yousef2005/auth-service:latest
-          yousef2005/auth-service:${{ github.sha }}
+      tags: |
+        yousef2005/auth-service:latest
+        yousef2005/auth-service:${{ github.sha }}
+        yousef2005/auth-service:1.0.${{ github.run_number }}
+
