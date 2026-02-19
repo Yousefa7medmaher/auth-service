@@ -1,20 +1,16 @@
-# 1️⃣ Base image
 FROM node:18
 
-# 2️⃣ Set working directory inside container
 WORKDIR /app
 
-# 3️⃣ Copy package files first (for better caching)
-COPY package*.json ./
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
-# 4️⃣ Install dependencies
-RUN npm install
+COPY --chown=appuser:appgroup package*.json ./
+RUN npm install --omit=dev
 
-# 5️⃣ Copy the rest of the app
-COPY . .
+COPY --chown=appuser:appgroup . .
 
-# 6️⃣ Expose app port (adjust if not 5000)
+USER appuser
+
 EXPOSE 5000
 
-# 7️⃣ Start the app
-CMD ["npm", "run", "dev"]
+CMD ["npm", "start"]

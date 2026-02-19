@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+  auth-service:
+    build: . 
+    container_name: auth-service
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env
+    depends_on:
+      - mongo-auth
+    networks:
+      - microservices-net
+  mongo-auth:
+    image: mongo:latest
+    container_name: mongo-auth
+    volumes:
+      - mongo-auth-data:/data/db
+    networks:
+      - microservices-net 
+# Volumes
+volumes:
+  mongo-auth-data: 
+
+# Network
+networks:
+  microservices-net:
+    driver: bridge
