@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-service
+  namespace: microservice-app
+  labels:
+    service: auth-service
+spec:
+  replicas: 4
+  revisionHistoryLimit: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 2
+
+  selector:
+    matchLabels:
+      ecommerce-app: auth-service
+
+  template:
+    metadata:
+      labels:
+        ecommerce-app: auth-service
+
+    spec:
+      containers:
+        - name: auth-con
+          image: yousef2005/auth-service
+          imagePullPolicy: IfNotPresent
+
+          ports:
+            - containerPort: 5000
+
+          envFrom:
+            - secretRef:
+                name: auth-secret
+            - configMapRef:
+                name: auth-config
+
+          resources:
+            requests:
+              cpu: "300m"
+              memory: "250Mi"
+            limits:
+              cpu: "400m"
+              memory: "400Mi"
+
+          livenessProbe:
+            httpGet:
+              path: /health 
+              port: 5000
+            initialDelaySeconds: 5
+            timeoutSeconds: 12
+            failureThreshold: 4
+
+          readinessProbe:
+            httpGet:
+              path: /ready 
+              port: 5000
+            initialDelaySeconds: 5
+            timeoutSeconds: 15
+            successThreshold: 1
+            failureThreshold: 4

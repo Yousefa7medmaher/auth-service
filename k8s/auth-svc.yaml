@@ -1,0 +1,15 @@
+apiVersion: v1 
+kind: Service 
+metadata: 
+  name: auth-svc 
+  labels: 
+    svc: auth-app 
+spec: 
+  type: NodePort
+  selector: 
+    ecommerce-app: auth-service
+  ports: 
+    - port: 5000 
+      targetPort: 5000 
+      nodePort: 32010
+      
