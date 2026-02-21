@@ -45,4 +45,13 @@ jobs:
           yousef2005/auth-service:latest
           yousef2005/auth-service:${{ github.sha }}
           yousef2005/auth-service:1.0.${{ github.run_number }}
+    - name: Setup SSH
+      uses: webfactory/ssh-agent@v0.8.1
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+    
+    - name: Apply Kubernetes manifests via SSH
+      run: |
+        ssh -o StrictHostKeyChecking=no ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }} \
+        "kubectl apply -f ~/manifests/microservice-app/auth-service/"
 
