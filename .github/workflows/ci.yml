@@ -46,7 +46,7 @@ jobs:
           yousef2005/auth-service:${{ github.sha }}
           yousef2005/auth-service:1.0.${{ github.run_number }}
     - name: Setup SSH
-      uses: webfactory/ssh-agent@v0.8.1
+      uses: truemark/ssh-agent-action@v1
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
     
