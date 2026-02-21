@@ -45,15 +45,4 @@ jobs:
           yousef2005/auth-service:latest
           yousef2005/auth-service:${{ github.sha }}
           yousef2005/auth-service:1.0.${{ github.run_number }}
-    - name: Setup Kubernetes cluster with kind
-      run: |
-        sudo apt-get update && sudo apt-get install -y docker.io
-        curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.25.0/kind-linux-amd64
-        chmod +x ./kind
-        sudo mv ./kind /usr/local/bin/kind
-        kind create cluster --name test-cluster
-    
-    - name: Apply Kubernetes manifests
-      run: |
-        kubectl apply -f k8s/
 
