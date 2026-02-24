@@ -2,9 +2,13 @@ name: Node.js CI with Docker + Atlas MongoDB
 
 on:
   push:
-    branches: [ main ]
+    branches: 
+      - main 
+      - nginx-conf
   pull_request:
-    branches: [ main ]
+    branches: 
+      - main 
+      - nginx-conf 
   workflow_dispatch:
 
 jobs:
