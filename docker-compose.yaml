@@ -1,10 +1,23 @@
- 
+version: "3.9"
 
 services:
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
+      # - "443:443"
+    volumes:
+      - ./nginx.conf/auth-service.com.conf:/etc/nginx/conf.d/default.conf
+      - letsencrypt-data:/etc/letsencrypt
+    depends_on:
+      - auth-service
+    networks:
+      - microservices-net
+
   auth-service:
-    # build: . 
     image: yousef2005/auth-service:latest
-    container_name: auth-service
     ports:
       - "5000:5000"
     env_file:
@@ -13,18 +26,18 @@ services:
       - mongo-auth
     networks:
       - microservices-net
+
   mongo-auth:
     image: mongo:latest
-    container_name: mongo-auth
     volumes:
       - mongo-auth-data:/data/db
     networks:
       - microservices-net 
-# Volumes
-volumes:
-  mongo-auth-data: 
 
-# Network
+volumes:
+  mongo-auth-data:
+  letsencrypt-data:
+
 networks:
   microservices-net:
     driver: bridge

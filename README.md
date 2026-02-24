@@ -18,7 +18,8 @@ This is a secure authentication microservice built using **Express.js**, **Mongo
 - ✅ Secured endpoints (e.g. `/protected`, `/admin`)
 - ✅ Docker support
 - ✅ CI pipeline via GitHub Actions
-
+- ✅ Health & readiness endpoints
+- ✅ Microservices-ready (works behind Nginx)
 ---
 
 ## 📁 Project Structure
