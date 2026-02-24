@@ -45,4 +45,11 @@ jobs:
           yousef2005/auth-service:latest
           yousef2005/auth-service:${{ github.sha }}
           yousef2005/auth-service:1.0.${{ github.run_number }}
-
+  deploy: 
+    runs-on: ubuntu-latest
+    needs: build-and-push 
+    steps:
+      - name: Set up K8s
+        uses: azure/setup-kubectl@v3
+      - name: Deploy to K8s
+        run: kubectl apply -f k8s/
