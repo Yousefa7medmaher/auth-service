@@ -1,4 +1,4 @@
-name: Node.js CI with Docker + Atlas MongoDB
+name: CI-CD for auth-service 
 
 on:
   push:
@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-push:
+  ci :
     runs-on: ubuntu-latest
 
     steps:
@@ -27,19 +27,23 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-
-     # Lint Step
     - name: Lint code
       run: npm run lint
- 
-    # Login to Docker Hub
+
+    - name: Test code 
+      run: npm run test 
+      continue-on-error: true
+      
+  cd: 
+    needs: ci 
+    runs-on: ubuntu-latest
+    environment: production 
+    steps:
     - name: Login to Docker Hub
       uses: docker/login-action@v3
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-
-    # Build and Push Docker image
     - name: Build and Push Docker image
       uses: docker/build-push-action@v5
       with:
@@ -50,3 +54,6 @@ jobs:
           yousef2005/auth-service:${{ github.sha }}
           yousef2005/auth-service:1.0.${{ github.run_number }}
 
+
+
+ 
