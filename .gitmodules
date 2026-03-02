@@ -1,0 +1,12 @@
+[submodule "auth-service"]
+	path = auth-service
+	url = https://github.com/Yousefa7medmaher/auth-service.git
+[submodule "cart-service"]
+	path = cart-service
+	url = https://github.com/Yousefa7medmaher/cart-service.git
+[submodule "order-service"]
+	path = order-service
+	url = https://github.com/Yousefa7medmaher/order-service.git
+[submodule "products-service"]
+	path = products-service
+	url = https://github.com/Yousefa7medmaher/product-service.git
