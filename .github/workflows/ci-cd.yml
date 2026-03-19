@@ -40,14 +40,17 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-           
+      - name: Create envfile
+        run: | 
+          echo "${{ secrets.MONGO_URI }}" >> .env 
+          echo "${{ secrets.JWT_SECRET }}" >> .env 
+          echo "${{ secrets.GOOGLE_CLIENT_ID }}" >> .env 
+          echo "${{ secrets.GOOGLE_CLIENT_SECRET }}" >> .env 
+
+          
       - name: Run docker compose
         run: docker compose up -d --build
-        env:
-          MONGO_URI: ${{ secrets.MONGO_URI }}
-          JWT_SECRET: ${{ secrets.JWT_SECRET }}
-          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
-          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+ 
       - name: Wait for app
         run: |
           for i in {1..6}; do
