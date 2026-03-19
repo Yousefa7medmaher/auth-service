@@ -35,7 +35,7 @@ jobs:
   staging:
     needs: ci
     runs-on: ubuntu-latest
-    if: github.ref_name == 'develop'
+    if: github.ref_name == 'main'
     services:
       mongo:
         image: mongo:6.0
