@@ -36,34 +36,38 @@ jobs:
     needs: ci
     runs-on: ubuntu-latest
     if: github.ref_name == 'main'
-    services:
-      mongo:
-        image: mongo:6.0
-        ports:
-          - 27017:27017
-        options: >-
-          --name mongo
-          -e MONGO_INITDB_ROOT_USERNAME=root
-          -e MONGO_INITDB_ROOT_PASSWORD=example
-
+  
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm  ci 
-      - name: docker compose 
-        run: docker compose up 
-        continue-on-error:  true
+  
+      - name: Run docker compose
+        run: docker compose up -d --build
+  
+      - name: Wait for app
+        run: |
+          for i in {1..20}; do
+            if curl -s http://localhost:5000/health; then
+              echo "App is ready"
+              break
+            fi
+            sleep 5
+          done
+  
+      - name: Health check
+        run: curl -f http://localhost:5000/health
+  
+      - name: Readiness check
+        run: curl -f http://localhost:5000/ready
+  
+      - name: Show logs (if failed)
+        if: failure()
+        run: docker compose logs
+  
   prod:
     needs: [ci, staging]
     runs-on: ubuntu-latest
+    environment: production 
     if: github.ref_name == 'main'
 
     steps:
