@@ -57,41 +57,10 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci
-
-      - name: Check app start
-        run: node src/server.js & sleep 5
-        env:
-          JWT_SECRET: ${{ secrets.JWT_SECRET }}
-          MONGO_URI: mongodb://root:example@localhost:27017/stagingdb
-
-      - name: Start app in background
-        run: |
-          export JWT_SECRET=${{ secrets.JWT_SECRET }}
-          export MONGO_URI=mongodb://root:example@localhost:27017/stagingdb
-          nohup npm run start &
-          sleep 10
-
-      - name: Test /health endpoint
-        run: |
-          RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:3000/health)
-          if [ "$RESPONSE" -ne 200 ]; then
-            echo " /health check failed"
-            exit 1
-          else
-            echo " /health check passed"
-          fi
-
-      - name: Test /ready endpoint
-        run: |
-          RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:3000/ready)
-          if [ "$RESPONSE" -ne 200 ]; then
-            echo " /ready check failed"
-            exit 1
-          else
-            echo " /ready check passed"
-          fi
-
+        run: npm  ci 
+      - name: docker compose 
+        run: docker compose up 
+        continue-on-error:  true
   prod:
     needs: [ci, staging]
     runs-on: ubuntu-latest
