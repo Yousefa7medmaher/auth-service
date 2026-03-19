@@ -42,10 +42,10 @@ jobs:
         uses: actions/checkout@v4
       - name: Create envfile
         run: | 
-          echo "${{ secrets.MONGO_URI }}" >> .env 
-          echo "${{ secrets.JWT_SECRET }}" >> .env 
-          echo "${{ secrets.GOOGLE_CLIENT_ID }}" >> .env 
-          echo "${{ secrets.GOOGLE_CLIENT_SECRET }}" >> .env 
+          echo "MONGO_URI=${{ secrets.MONGO_URI }}" >> .env 
+          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env 
+          echo "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}" >> .env 
+          echo "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}" >> .env 
 
           
       - name: Run docker compose
