@@ -35,7 +35,7 @@ jobs:
         continue-on-error:  true
 
       - name: Build
-        run: npm run build
+        run: npm run start 
 
   cd:
     needs: ci
