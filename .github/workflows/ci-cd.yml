@@ -98,7 +98,7 @@ jobs:
           context: .
           push: true
           tags: |
-            484907510239.dkr.ecr.us-east-1.amazonaws.com/joorepo:latest
-            484907510239.dkr.ecr.us-east-1.amazonaws.com/joorepo:${{ github.sha }}
-            484907510239.dkr.ecr.us-east-1.amazonaws.com/joorepo:v1.${{ github.run_number }}
+            484907510239.dkr.ecr.us-east-1.amazonaws.com/auth-service:latest
+            484907510239.dkr.ecr.us-east-1.amazonaws.com/auth-service:${{ github.sha }}
+            484907510239.dkr.ecr.us-east-1.amazonaws.com/auth-service:v1.${{ github.run_number }}
   
