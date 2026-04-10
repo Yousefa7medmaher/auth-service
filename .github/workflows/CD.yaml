@@ -34,7 +34,7 @@ on:
 
 jobs:
   deploy:
-    uses: Yousefa7medmaher/reusable-workflows/.github/workflows/reusable-CD.yaml@main
+    uses: Yousefa7medmaher/reusable-workflows/.github/workflows/reusbale-CD.yaml@main
     with:
       image_tag: ${{ inputs.image_tag }}
       cluster_name: ${{ inputs.cluster_name }}   
