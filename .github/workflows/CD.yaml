@@ -1,0 +1,49 @@
+name: Deploy to EKS
+
+on:
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        description: "Docker image tag to deploy"
+        required: true
+        type: string
+
+      environment:
+        description: "Target environment"
+        required: true
+        type: choice
+        options:
+          - dev
+          - staging
+          - prod
+
+      cluster_name:
+        description: "EKS cluster name"
+        required: true
+        type: string
+
+      namespace:
+        description: "Kubernetes namespace"
+        required: true
+        type: string
+
+      repo_name:
+        description: "ECR repository name"
+        required: true
+        type: string
+
+jobs:
+  deploy:
+    uses: Yousefa7medmaher/reusable-workflows/.github/workflows/reusable-CD.yaml@main
+
+    with:
+      image_tag: ${{ inputs.image_tag }}
+      cluster_name: ${{ inputs.cluster_name }}   
+      namespace: ${{ inputs.namespace }}
+      service_name: "auth-service"
+      repo_name: ${{ inputs.repo_name }}
+
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
