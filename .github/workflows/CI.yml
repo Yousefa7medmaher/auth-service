@@ -1,4 +1,4 @@
-name: CI-CD for auth-service
+name: CI  for auth-service
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
 
 jobs:
 
-  ci:
+  build-and-lint:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -33,7 +33,7 @@ jobs:
 
  
   staging:
-    needs: ci
+    needs: build-and-lint
     runs-on: ubuntu-latest
     if: github.ref_name == 'main'
   
@@ -71,8 +71,8 @@ jobs:
         if: failure()
         run: docker compose logs
     
-  prod:
-    needs: [ci, staging]
+  build-and-push:
+    needs: [build-and-lint, staging]
     runs-on: ubuntu-latest
     environment: production 
     if: github.ref_name == 'main'
