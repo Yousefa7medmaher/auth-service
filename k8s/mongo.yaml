@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: mongo-auth
-  namespace: microservice-app
+  namespace: micro-app 
   labels:
     app: mongo-auth
 spec:
@@ -17,10 +17,10 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: mongo-auth
-  namespace: microservice-app
+  namespace: micro-app 
 spec:
   serviceName: "mongo-auth" 
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: mongo-auth
@@ -46,10 +46,9 @@ spec:
   volumeClaimTemplates:
     - metadata:
         name: mongo-data
-        namespace: microservice-app
       spec:
         accessModes: ["ReadWriteOnce"]
-        storageClassName: standard
+        storageClassName: gp2 
         resources:
           requests:
             storage: 1Gi
