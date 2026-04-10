@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: auth-service
-  namespace: microservice-app
+  namespace: micro-app 
   labels:
     service: auth-service
 spec:
@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
         - name: auth-con
-          image: yousef2005/auth-service
+          image: 484907510239.dkr.ecr.us-east-1.amazonaws.com/auth-service:v1.21
           imagePullPolicy: IfNotPresent
 
           ports:
