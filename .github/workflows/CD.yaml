@@ -34,12 +34,15 @@ on:
 
 jobs:
   deploy:
-    uses: Yousefa7medmaher/reusable-workflows/.github/workflows/reusbale-CD.yaml@main
+    environment: ${{ inputs.environment }}
+
+    uses: Yousefa7medmaher/reusable-workflows/.github/workflows/reusable-CD.yaml@main
+
     with:
       image_tag: ${{ inputs.image_tag }}
-      cluster_name: ${{ inputs.cluster_name }}   
+      cluster_name: ${{ inputs.cluster_name }}
       namespace: ${{ inputs.namespace }}
-      service_name: "auth-service"
+      service_name: auth-service
       repo_name: ${{ inputs.repo_name }}
 
     secrets:
