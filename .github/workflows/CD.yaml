@@ -37,6 +37,7 @@ jobs:
       namespace: ${{ inputs.namespace }}
       repo_name: ${{ inputs.repo_name }}
       service_name: "auth-service"
+      environment: ${{ inputs.environment }}   
 
     secrets:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
