@@ -15,7 +15,7 @@ on:
         options:
           - dev
           - staging
-          - prod
+          - production
 
       cluster_name:
         description: "EKS cluster name"
