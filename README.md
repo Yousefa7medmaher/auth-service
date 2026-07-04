@@ -1,4 +1,4 @@
-# 🛡️ Auth Service (Express.js + MongoDB + Google OAuth)
+# Auth Service (Express.js + MongoDB + Google OAuth)
 
 This is a secure authentication microservice built using **Express.js**, **MongoDB**, **Mongoose**, and **Passport.js** with **Google OAuth 2.0** support. It supports:
 - User registration & login with email/password
@@ -8,20 +8,20 @@ This is a secure authentication microservice built using **Express.js**, **Mongo
 
 ---
 
-## 🚀 Features
+## Features
 
-- ✅ Register with email & strong password
-- ✅ Login with email/password
-- ✅ Login with Google using Passport.js
-- ✅ Role-based access (e.g. admin only routes)
-- ✅ JWT token issued on successful login
-- ✅ Secured endpoints (e.g. `/protected`, `/admin`)
-- ✅ Docker support
-- ✅ CI pipeline via GitHub Actions
+- Register with email & strong password
+- Login with email/password
+- Login with Google using Passport.js
+- Role-based access (e.g. admin only routes)
+- JWT token issued on successful login
+- Secured endpoints (e.g. `/protected`, `/admin`)
+- Docker support
+- CI pipeline via GitHub Actions
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 .
@@ -50,7 +50,7 @@ This is a secure authentication microservice built using **Express.js**, **Mongo
 
 ---
 
-## ⚙️ Environment Variables
+## Environment Variables
 
 Create a `.env` file in the root with:
 
@@ -66,7 +66,7 @@ NODE_ENV=development
 
 ---
 
-## 🧑‍💻 API Endpoints
+## API Endpoints
 
 ### Auth & User
 
@@ -87,7 +87,7 @@ NODE_ENV=development
 
 ---
 
-## 🛡️ Security
+## Security
 
 - Passwords are hashed with bcryptjs
 - JWT tokens for stateless authentication
@@ -96,7 +96,7 @@ NODE_ENV=development
 
 ---
 
-## 🐳 Docker
+## Docker
 
 Build and run with Docker:
 
@@ -107,21 +107,21 @@ docker run -p 5000:5000 --env-file .env auth-service
 
 ---
 
-## 📝 Scripts
+## Scripts
 
 - `npm run dev` — Start server with nodemon (development)
 
 ---
 
-## 🧩 Dependencies
+## Dependencies
 
 - express, mongoose, dotenv, bcryptjs, jsonwebtoken, cors
 - passport, passport-google-oauth20
 
 ---
 
-## 📢 Notes
+## Notes
 
 - Make sure to set up your Google OAuth credentials in the Google Cloud Console.
 - The `.env` file is ignored by git for security.
-- Replace `your-production-domain.com` in CORS settings for production. 
+- Replace `your-production-domain.com` in CORS settings for production.
