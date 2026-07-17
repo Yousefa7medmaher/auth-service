@@ -17,7 +17,7 @@ router.get('/verify-token', (req, res) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     return res.json({ user: decoded }); 
   } catch (err) {
-    return res.status(401).json({ message: 'Invalid token' });
+    return res.status(401).json({ message: 'Invalid token' , error: err.message  });
   }
 });
 
