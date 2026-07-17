@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import connectDB from '../config/db.js';
 import apiRoutes from './routes/route.js';
-
+import verifyTokenRoute from './routes/verifyTokenRoute.js'; 
 dotenv.config();
 
 const app = express();
@@ -19,6 +19,7 @@ app.use(express.json());
 
 // Routes
 app.use('/api', apiRoutes);
+app.use('/', verifyTokenRoute);
 
 app.get('/', (req, res) => {
   res.status(200).send('Auth Service is running');
